@@ -1,5 +1,5 @@
-import type { NextPage } from "next";
-import Image from "next/image";
+import type { NextPage } from 'next';
+import Image from 'next/image';
 
 const Home: NextPage = () => {
     return (
@@ -7,10 +7,12 @@ const Home: NextPage = () => {
             <video
                 autoPlay
                 className="h-screen w-screen object-cover md:hidden"
-                loop
                 muted
             >
-                <source src="/assets/videos/hero-video.mp4" type="video/mp4" />
+                <source
+                    src="/assets/videos/hero-video-compressed.mp4"
+                    type="video/mp4"
+                />
             </video>
             <div className="hidden h-screen w-screen md:block">
                 <Image
