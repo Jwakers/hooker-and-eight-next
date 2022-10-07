@@ -36,6 +36,7 @@
 		"rules": {
 		  "@next/next/no-img-element": "off", // We currently not using next/image because it isn't supported with SSG mode
 		  "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
+		  "@typescript-eslint/no-use-before-define": "off",
 		  "@typescript-eslint/naming-convention": [
 			"error",
 			{
