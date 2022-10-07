@@ -61,21 +61,48 @@ const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
     }, [menuOpen]);
 
     return (
-        <nav
-            className={classNames(
-                'clip-path-nav fixed top-0 right-0 flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
-                menuOpen ? 'translate-x-0' : 'translate-x-full'
-            )}
-            ref={ref}
-        >
-            <NavList />
-        </nav>
+        <>
+            <div
+                className={classNames(
+                    'pointer-events-none fixed left-0 top-0 h-screen w-screen transition-all duration-300',
+                    menuOpen
+                        ? 'backdrop-blur-[2px] backdrop-grayscale-[0.4]'
+                        : 'backdrop-blur-0 backdrop-grayscale-0'
+                )}
+            />
+            <nav
+                className={classNames(
+                    'clip-path-nav fixed top-0 right-0 flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
+                    menuOpen ? 'translate-x-0' : 'translate-x-full'
+                )}
+                ref={ref}
+            >
+                <NavList />
+            </nav>
+        </>
     );
 };
 
 const Navigation: React.FC = () => {
+    const ref = useRef<HTMLElement>(null);
+    const tl = useRef<gsap.core.Timeline>();
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            tl.current = gsap.timeline().from(ref.current?.children || [], {
+                opacity: 0,
+                duration: 0.3,
+                y: 20,
+                delay: 0.8,
+                stagger: 0.1,
+            });
+        }, ref);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <nav className="hidden items-center gap-12 text-xl md:flex">
+        <nav className="hidden items-center gap-12 text-xl md:flex" ref={ref}>
             <NavList />
         </nav>
     );
