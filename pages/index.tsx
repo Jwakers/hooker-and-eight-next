@@ -32,8 +32,25 @@ const Home: NextPage = () => {
                             Hooker and Eight
                         </h1>
                         <div className="flex items-center justify-center gap-x-2">
-                            <a className="btn">Menu</a>
-                            <a className="btn">Table Reservation</a>
+                            <span
+                                data-glf-cuid="4fb0fb85-1362-4f6e-92b9-705b22814f18"
+                                data-glf-ruid="f7220aa7-9342-4482-a162-2664ecf3b30f"
+                                id="glfButton1"
+                            >
+                                <button className="btn">
+                                    Menu &amp; Order
+                                </button>
+                            </span>
+                            <span
+                                data-glf-cuid="4fb0fb85-1362-4f6e-92b9-705b22814f18"
+                                data-glf-reservation="true"
+                                data-glf-ruid="f7220aa7-9342-4482-a162-2664ecf3b30f"
+                                id="glfButton2"
+                            >
+                                <button className="btn">
+                                    Table Reservation
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
