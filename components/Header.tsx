@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 import gsap from 'gsap';
@@ -9,13 +9,15 @@ import Content from '@/components/Content';
 
 import MenuAndOrder from './MenuAndOrder';
 
-const Header = () => {
+const Header: React.FC<{ logoRef: RefObject<HTMLDivElement> }> = ({
+    logoRef,
+}) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
         <header className="absolute z-10 w-full py-2 text-white lg:py-4">
             <Content className="flex items-center justify-between gap-6">
-                <div className="relative w-52 md:w-80">
+                <div className="relative w-52 md:w-80" ref={logoRef}>
                     <Image
                         alt="Hooker and Eight text logo"
                         height={40}

@@ -34,4 +34,7 @@ a {
     .clip-path-nav {
         clip-path: polygon(0% 0%, 100% 0, 100% 100%, 30% 100%);
     }
+    .writing-mode-vrl {
+        writing-mode: vertical-rl;
+    }
 }
