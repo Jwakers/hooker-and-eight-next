@@ -57,7 +57,7 @@ const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
                 .to(
                     menu.current,
                     {
-                        filter: 'drop-shadow(-30px 0px 6px rgb(40 0 0 / 0.4))',
+                        filter: 'drop-shadow(-30px 0px 6px rgb(30 0 0 / 0.4))',
                     },
                     '<'
                 );

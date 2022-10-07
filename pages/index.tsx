@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
@@ -8,7 +9,10 @@ import Content from '@/components/Content';
 import Header from '@/components/Header';
 import MenuAndOrder from '@/components/MenuAndOrder';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Home: NextPage = () => {
+    const heroText = useRef<HTMLDivElement>(null);
     const logo = useRef(null);
     const title = useRef<HTMLHeadingElement>(null);
     const subTitle = useRef<HTMLDivElement>(null);
@@ -24,6 +28,15 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            gsap.to([heroText.current, scroll.current], {
+                scrollTrigger: {
+                    scrub: true,
+                },
+                y: (_, target) =>
+                    -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+                ease: 'none',
+            });
+
             tl.current = gsap
                 .timeline()
                 .from(logo.current, {
@@ -86,7 +99,11 @@ const Home: NextPage = () => {
                             src="/assets/images/hero-image.jpg"
                         />
                     </div>
-                    <div className="relative flex h-full w-full items-center justify-center text-white">
+                    <div
+                        className="relative flex h-full w-full items-center justify-center text-white"
+                        data-speed={0.2}
+                        ref={heroText}
+                    >
                         <Content className="text-center">
                             <div className="text-2xl" ref={title}>
                                 Stunning handmade pizza at
@@ -122,6 +139,7 @@ const Home: NextPage = () => {
                     <Content className="relative">
                         <div
                             className="absolute -top-8 left-0 -translate-y-full overflow-hidden text-sm text-white"
+                            data-speed={0.6}
                             ref={scroll}
                         >
                             <div className="flex h-full flex-col items-center gap-4">
@@ -131,6 +149,7 @@ const Home: NextPage = () => {
                         </div>
                     </Content>
                 </section>
+                <div className="pb-96">text</div>
             </main>
         </>
     );
