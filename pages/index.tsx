@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 const Home: NextPage = () => {
     return (
-        <main className="h-screen w-full">
+        <main className="relative h-screen w-full">
             <video
                 autoPlay
-                className="h-screen w-screen object-cover md:hidden"
+                className="absolute h-screen w-screen object-cover md:hidden"
                 muted
             >
                 <source
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
                     type="video/mp4"
                 />
             </video>
-            <div className="hidden h-screen w-screen md:block">
+            <div className="absolute hidden h-screen w-screen md:block">
                 <Image
                     alt="Freshly cooked pizza"
                     layout="fill"
