@@ -17,7 +17,7 @@ const Header: React.FC<{ logoRef: RefObject<HTMLDivElement> }> = ({
     return (
         <header className="absolute z-10 w-full py-2 text-white lg:py-4">
             <Content className="flex items-center justify-between gap-6">
-                <div className="relative w-52 md:w-80" ref={logoRef}>
+                <div className="relative w-60 md:w-80" ref={logoRef}>
                     <Image
                         alt="Hooker and Eight text logo"
                         height={40}

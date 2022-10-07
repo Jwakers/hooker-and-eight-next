@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import gsap from 'gsap';
 import type { NextPage } from 'next';
@@ -16,13 +16,13 @@ const Home: NextPage = () => {
     const scroll = useRef<HTMLDivElement>(null);
     const tl = useRef<gsap.core.Timeline>();
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const ctx = gsap.context(() => {
             tl.current = gsap
                 .timeline()
                 .from(logo.current, {
                     y: 100,
-                    clipPath: 'inset(0% 100% 0% 0%)',
+                    clipPath: 'inset(100% 100% 0% 0%)',
                     duration: 1,
                 })
                 .from(title.current, {
@@ -56,10 +56,13 @@ const Home: NextPage = () => {
         <>
             <Header logoRef={logo} />
             <main>
-                <section className="relative h-screen w-full">
+                <section
+                    className="relative h-screen w-full"
+                    style={{ height: `${window.innerHeight}px` }}
+                >
                     <video
                         autoPlay
-                        className="absolute h-screen w-screen object-cover md:hidden"
+                        className="absolute h-full w-full object-cover md:hidden"
                         muted
                     >
                         <source
@@ -67,7 +70,7 @@ const Home: NextPage = () => {
                             type="video/mp4"
                         />
                     </video>
-                    <div className="absolute hidden h-screen w-screen md:block">
+                    <div className="absolute hidden h-full w-full md:block">
                         <Image
                             alt="Freshly cooked pizza"
                             layout="fill"
@@ -75,7 +78,7 @@ const Home: NextPage = () => {
                             src="/assets/images/hero-image.jpg"
                         />
                     </div>
-                    <div className="relative flex h-screen w-screen items-center justify-center text-white">
+                    <div className="relative flex h-full w-full items-center justify-center text-white">
                         <Content className="text-center">
                             <div className="text-2xl" ref={title}>
                                 Stunning handmade pizza at
