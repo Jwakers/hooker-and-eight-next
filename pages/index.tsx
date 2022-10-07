@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import gsap from 'gsap';
 import type { NextPage } from 'next';
@@ -15,6 +15,12 @@ const Home: NextPage = () => {
     const buttons = useRef<HTMLDivElement>(null);
     const scroll = useRef<HTMLDivElement>(null);
     const tl = useRef<gsap.core.Timeline>();
+
+    const [heroHeight, setHeroHeight] = useState<number | string>('auto');
+
+    useEffect(() => {
+        setHeroHeight(window.innerHeight);
+    }, []);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -58,7 +64,9 @@ const Home: NextPage = () => {
             <main>
                 <section
                     className="relative h-screen w-full"
-                    style={{ height: `${window.innerHeight}px` }}
+                    style={{
+                        height: heroHeight,
+                    }}
                 >
                     <video
                         autoPlay

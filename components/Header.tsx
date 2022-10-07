@@ -38,20 +38,30 @@ const Header: React.FC<{ logoRef: RefObject<HTMLDivElement> }> = ({
 };
 
 const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
-    const ref = useRef<HTMLElement>(null);
+    const navlist = useRef<HTMLElement>(null);
+    const menu = useRef<HTMLDivElement>(null);
     const tl = useRef<gsap.core.Timeline>();
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            if (!ref.current) return;
-            tl.current = gsap.timeline().from(ref.current.children, {
-                opacity: 0,
-                duration: 0.3,
-                x: 20,
-                delay: 0.2,
-                stagger: 0.1,
-            });
-        }, ref);
+            if (!navlist.current) return;
+            tl.current = gsap
+                .timeline()
+                .from(navlist.current.children, {
+                    opacity: 0,
+                    duration: 0.3,
+                    x: 20,
+                    delay: 0.2,
+                    stagger: 0.1,
+                })
+                .to(
+                    menu.current,
+                    {
+                        filter: 'drop-shadow(-30px 0px 6px rgb(40 0 0 / 0.4))',
+                    },
+                    '<'
+                );
+        }, [navlist, menu]);
         return () => ctx.revert();
     }, []);
 
@@ -70,15 +80,17 @@ const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
                         : 'backdrop-blur-0 backdrop-grayscale-0'
                 )}
             />
-            <nav
-                className={classNames(
-                    'clip-path-nav fixed top-0 right-0 flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
-                    menuOpen ? 'translate-x-0' : 'translate-x-full'
-                )}
-                ref={ref}
-            >
-                <NavList />
-            </nav>
+            <div className="fixed top-0 right-0" ref={menu}>
+                <nav
+                    className={classNames(
+                        'clip-path-nav flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
+                        menuOpen ? 'translate-x-0' : 'translate-x-full'
+                    )}
+                    ref={navlist}
+                >
+                    <NavList />
+                </nav>
+            </div>
         </>
     );
 };
