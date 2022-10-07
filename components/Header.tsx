@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import classNames, { Argument } from 'classnames';
+import classNames from 'classnames';
+import gsap from 'gsap';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -23,13 +24,8 @@ const Header = () => {
                         width={200}
                     />
                 </div>
-                <Navigation
-                    className={classNames(
-                        'clip-path-nav fixed top-0 right-0 flex h-screen w-auto flex-col gap-10 bg-red-600 py-14 pr-10 pl-20 text-right text-5xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
-                        menuOpen ? 'translate-x-0' : 'translate-x-full'
-                    )}
-                />
-                <Navigation className="hidden items-center gap-12 text-xl md:flex" />
+                <SideMenu menuOpen={menuOpen} />
+                <Navigation />
                 <Hamburger
                     menuOpen={menuOpen}
                     onClick={() => setMenuOpen(!menuOpen)}
@@ -39,10 +35,54 @@ const Header = () => {
     );
 };
 
-const Navigation: React.FC<{ className: Argument }> = ({ className }) => (
-    <nav className={classNames(className)}>
+const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
+    const ref = useRef<HTMLElement>(null);
+    const tl = useRef<gsap.core.Timeline>();
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            if (!ref.current) return;
+            tl.current = gsap.timeline().from(ref.current.children, {
+                opacity: 0,
+                duration: 0.3,
+                x: 20,
+                delay: 0.2,
+                stagger: 0.1,
+            });
+        }, ref);
+        return () => ctx.revert();
+    }, []);
+
+    useEffect(() => {
+        if (!tl.current) return;
+        tl.current.reversed(!menuOpen);
+    }, [menuOpen]);
+
+    return (
+        <nav
+            className={classNames(
+                'clip-path-nav fixed top-0 right-0 flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
+                menuOpen ? 'translate-x-0' : 'translate-x-full'
+            )}
+            ref={ref}
+        >
+            <NavList />
+        </nav>
+    );
+};
+
+const Navigation: React.FC = () => {
+    return (
+        <nav className="hidden items-center gap-12 text-xl md:flex">
+            <NavList />
+        </nav>
+    );
+};
+
+const NavList = () => (
+    <>
         <MenuAndOrder>
-            <div>Menu and Order</div>
+            <div>Menu &amp; Order</div>
         </MenuAndOrder>
         <Link href="/find-us">
             <a className="">Find us</a>
@@ -56,7 +96,7 @@ const Navigation: React.FC<{ className: Argument }> = ({ className }) => (
         <Link href="/find-us">
             <a className="">Openside</a>
         </Link>
-    </nav>
+    </>
 );
 
 const Hamburger: React.FC<{ onClick: () => void; menuOpen?: boolean }> = ({
@@ -65,7 +105,7 @@ const Hamburger: React.FC<{ onClick: () => void; menuOpen?: boolean }> = ({
 }) => (
     <div
         className={classNames(
-            'fixed bottom-8 flex h-16 w-16 translate-x-1/2 items-center justify-center rounded-full border-2 bg-red-600 transition-[right] duration-700 md:hidden',
+            'fixed bottom-8 flex h-16 w-16 translate-x-1/2 items-center justify-center rounded-full border-2 transition-[right] duration-700 md:hidden',
             menuOpen ? 'right-16' : 'right-1/2'
         )}
         onClick={onClick}

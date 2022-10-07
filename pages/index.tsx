@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
+import Content from '@/components/Content';
 import Header from '@/components/Header';
 import MenuAndOrder from '@/components/MenuAndOrder';
 
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
                         />
                     </div>
                     <div className="relative flex h-screen w-screen items-center justify-center text-white">
-                        <div className="text-center">
+                        <Content className="text-center">
                             <div className="text-2xl">
                                 Stunning handmade pizza at
                             </div>
@@ -53,7 +54,7 @@ const Home: NextPage = () => {
                                     </button>
                                 </span>
                             </div>
-                        </div>
+                        </Content>
                     </div>
                 </section>
             </main>
