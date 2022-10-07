@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import gsap from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import type { NextPage } from 'next';
 import Image from 'next/image';
@@ -12,13 +12,14 @@ import MenuAndOrder from '@/components/MenuAndOrder';
 gsap.registerPlugin(ScrollTrigger);
 
 const Home: NextPage = () => {
+    const hero = useRef<HTMLDivElement>(null);
     const heroText = useRef<HTMLDivElement>(null);
     const logo = useRef(null);
     const title = useRef<HTMLHeadingElement>(null);
     const subTitle = useRef<HTMLDivElement>(null);
     const buttons = useRef<HTMLDivElement>(null);
     const scroll = useRef<HTMLDivElement>(null);
-    const tl = useRef<gsap.core.Timeline>();
+    const scrollWrap = useRef<HTMLDivElement>(null);
 
     const [heroHeight, setHeroHeight] = useState<number | string>('auto');
 
@@ -28,17 +29,15 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.to([heroText.current, scroll.current], {
+            gsap.to([heroText.current, scrollWrap.current], {
                 scrollTrigger: {
                     scrub: true,
                 },
-                y: (_, target) =>
-                    -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+                y: (_, target) => -200 * target.dataset.speed,
                 ease: 'none',
             });
 
-            tl.current = gsap
-                .timeline()
+            gsap.timeline()
                 .from(logo.current, {
                     y: 100,
                     clipPath: 'inset(100% 100% 0% 0%)',
@@ -67,16 +66,18 @@ const Home: NextPage = () => {
                     clipPath: 'inset(0% 0% 100% 0%)',
                     delay: 1,
                 });
-        }, [title, subTitle]);
+        }, [heroText, scrollWrap, logo, title, subTitle, buttons, scroll]);
 
         return () => ctx.revert();
     }, []);
+
     return (
         <>
             <Header logoRef={logo} />
             <main>
                 <section
                     className="relative h-screen w-full"
+                    ref={hero}
                     style={{
                         height: heroHeight,
                     }}
@@ -127,7 +128,6 @@ const Home: NextPage = () => {
                                     data-glf-cuid="4fb0fb85-1362-4f6e-92b9-705b22814f18"
                                     data-glf-reservation="true"
                                     data-glf-ruid="f7220aa7-9342-4482-a162-2664ecf3b30f"
-                                    id="glfButton2"
                                 >
                                     <button className="btn">
                                         Table Reservation
@@ -137,14 +137,17 @@ const Home: NextPage = () => {
                         </Content>
                     </div>
                     <Content className="relative">
-                        <div
-                            className="absolute -top-8 left-0 -translate-y-full overflow-hidden text-sm text-white"
-                            data-speed={0.6}
-                            ref={scroll}
-                        >
-                            <div className="flex h-full flex-col items-center gap-4">
-                                <span className="h-40 w-px grow border-r border-white" />
-                                <span className="writing-mode-vrl">scroll</span>
+                        <div data-speed={0.1} ref={scrollWrap}>
+                            <div
+                                className="absolute -top-8 left-0 -translate-y-full overflow-hidden text-sm text-white"
+                                ref={scroll}
+                            >
+                                <div className="flex h-full flex-col items-center gap-4">
+                                    <span className="h-40 w-px grow border-r border-white" />
+                                    <span className="writing-mode-vrl">
+                                        scroll
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </Content>

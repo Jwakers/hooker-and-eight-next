@@ -80,12 +80,15 @@ const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
                         : 'backdrop-blur-0 backdrop-grayscale-0'
                 )}
             />
-            <div className="fixed top-0 right-0" ref={menu}>
+            <div
+                className={classNames(
+                    'fixed top-0 right-0 transition-transform duration-500 ease-in-out',
+                    menuOpen ? 'translate-x-0' : 'translate-x-full'
+                )}
+                ref={menu}
+            >
                 <nav
-                    className={classNames(
-                        'clip-path-nav flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white transition-transform duration-500 ease-in-out md:hidden',
-                        menuOpen ? 'translate-x-0' : 'translate-x-full'
-                    )}
+                    className="clip-path-nav flex h-screen w-auto flex-col gap-10 bg-red-600 py-10 pr-10 pl-20 text-right text-3xl font-medium text-white md:hidden"
                     ref={navlist}
                 >
                     <NavList />
