@@ -198,7 +198,7 @@ const ContentBlock = () => {
             <Content>
                 <div className="mx-auto grid max-w-3xl grid-cols-[50%_60px_auto]">
                     <div
-                        className="relative z-10 col-span-2 col-start-1 row-span-1 row-start-2 p-6"
+                        className="relative z-10 col-span-2 col-start-1 row-span-1 row-start-2 p-6 drop-shadow-[6px_6px_2px_rgb(0_0_0_/0.1)]"
                         data-speed={0.4}
                         ref={content}
                     >
