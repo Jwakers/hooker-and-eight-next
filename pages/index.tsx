@@ -103,7 +103,7 @@ const Home: NextPage = () => {
                     </div>
                     <div
                         className="relative flex h-full w-full items-center justify-center text-white"
-                        data-speed={0.2}
+                        data-speed={1}
                         ref={heroText}
                     >
                         <Content className="text-center">
@@ -138,7 +138,7 @@ const Home: NextPage = () => {
                         </Content>
                     </div>
                     <Content className="relative">
-                        <div data-speed={0.1} ref={scrollWrap}>
+                        <div data-speed={0.4} ref={scrollWrap}>
                             <div
                                 className="absolute -top-8 left-0 -translate-y-full overflow-hidden text-sm text-white"
                                 ref={scroll}
@@ -222,7 +222,7 @@ const ContentBlock: React.FC<{
             >
                 <div
                     className="relative z-10 p-6"
-                    data-speed={0.4}
+                    data-speed={0.2}
                     ref={content}
                 >
                     <h2 className="mb-4 font-galasio text-5xl">{title}</h2>
