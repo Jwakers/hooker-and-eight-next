@@ -110,7 +110,7 @@ const Home: NextPage = () => {
                                 Stunning handmade pizza at
                             </div>
                             <h1
-                                className="mb-4 font-garamond text-5xl font-medium"
+                                className="mb-4 font-galasio text-5xl"
                                 ref={subTitle}
                             >
                                 Hooker and Eight
@@ -152,9 +152,100 @@ const Home: NextPage = () => {
                         </div>
                     </Content>
                 </section>
-                <div className="pb-96">text</div>
+                <ContentBlock />
             </main>
         </>
+    );
+};
+
+const ContentBlock = () => {
+    const content = useRef<HTMLDivElement>(null);
+    const svgPath = useRef<SVGPathElement>(null);
+    const svgPathLength = 1000;
+
+    useEffect(() => {
+        gsap.fromTo(
+            svgPath.current,
+            {
+                strokeDasharray: svgPathLength,
+                strokeDashoffset: svgPathLength,
+            },
+            {
+                scrollTrigger: {
+                    trigger: content.current,
+                    start: 'bottom bottom',
+                    end: 'bottom 50%',
+                    scrub: 0.2,
+                },
+                strokeDashoffset: 0,
+            }
+        );
+
+        gsap.to(content.current, {
+            scrollTrigger: {
+                trigger: content.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+            },
+            y: (_, target) => -200 * target.dataset.speed,
+            ease: 'none',
+        });
+    }, []);
+
+    return (
+        <section className="bg-red-900 py-14 pb-96 text-white">
+            <Content>
+                <div className="mx-auto grid max-w-3xl grid-cols-[50%_60px_auto]">
+                    <div
+                        className="relative z-10 col-span-2 col-start-1 row-span-1 row-start-2 p-6"
+                        data-speed={0.4}
+                        ref={content}
+                    >
+                        <h2 className="mb-4 font-galasio text-5xl">
+                            All fresh, all handmade
+                        </h2>
+                        <p>
+                            From our slow-cooked sauce, to our home made
+                            meatballs using Nonna Balzano&apos;s secret recipe.
+                            Hooker & Eight takes serious pride in everything
+                            that goes onto our dough and are proud that the vast
+                            majority of our ingredients are sourced from local
+                            Gloucestershire businesses.
+                        </p>
+                        <svg
+                            className="absolute top-0 left-0 ml-[1px] stroke-current lg:ml-0"
+                            fill="none"
+                            height="100%"
+                            preserveAspectRatio="none"
+                            viewBox="0 0 100 100"
+                            width="100%"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M0 0h100v100H0Z"
+                                fill="none"
+                                pathLength={svgPathLength}
+                                ref={svgPath}
+                                strokeWidth="1"
+                            />
+                        </svg>
+                    </div>
+                    <div className="col-span-2 col-start-2 row-span-3 row-start-1">
+                        {/* <Image
+                                    alt=""
+                                    height={350}
+                                    src="https://via.placeholder.com/350"
+                                    width={350}
+                                /> */}
+                        <img
+                            className="h-full w-full object-cover"
+                            src="https://via.placeholder.com/150"
+                        />
+                    </div>
+                </div>
+            </Content>
+        </section>
     );
 };
 

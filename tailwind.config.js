@@ -6,7 +6,7 @@ module.exports = {
     ],
     theme: {
         fontFamily: {
-            garamond: ['"EB Garamond"', 'serif'],
+            galasio: ['"Galasio"', 'serif'],
         },
         extend: {},
     },
