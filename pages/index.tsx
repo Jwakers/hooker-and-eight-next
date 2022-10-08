@@ -216,8 +216,8 @@ const ContentBlock: React.FC<{
         <Content>
             <div
                 className={classNames(
-                    'flex max-w-4xl items-center',
-                    reverse && 'ml-auto flex-row-reverse'
+                    'max-w-4xl items-center md:flex md:gap-6',
+                    reverse && 'md:ml-auto md:flex-row-reverse'
                 )}
             >
                 <div
@@ -247,10 +247,10 @@ const ContentBlock: React.FC<{
                 </div>
                 <div
                     className={classNames(
-                        'relative -left-10 h-[200px] w-full flex-[0_0_auto] md:h-[400px] md:w-[400px]',
+                        'relative h-[200px] w-full flex-[0_0_auto] md:h-[400px] md:w-[400px]',
                         reverse
-                            ? '[clip-path:_circle(100%_at_top_right)]'
-                            : '[clip-path:_circle(100%_at_bottom_left)]'
+                            ? 'md:[clip-path:_circle(100%_at_top_right)]'
+                            : 'md:[clip-path:_circle(100%_at_bottom_left)]'
                     )}
                 >
                     <Image
