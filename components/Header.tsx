@@ -15,7 +15,7 @@ const Header: React.FC<{ logoRef: RefObject<HTMLDivElement> }> = ({
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <header className="absolute z-10 w-full py-2 text-white lg:py-4">
+        <header className="absolute z-50 w-full py-2 text-white lg:py-4">
             <Content className="flex items-center justify-between gap-6">
                 <div className="relative w-60 md:w-80" ref={logoRef}>
                     <Image
@@ -149,7 +149,7 @@ const Hamburger: React.FC<{ onClick: () => void; menuOpen?: boolean }> = ({
 }) => (
     <div
         className={classNames(
-            'fixed bottom-8 flex h-16 w-16 translate-x-1/2 items-center justify-center rounded-full border-2 transition-[right] duration-700 md:hidden',
+            'fixed bottom-8 flex h-16 w-16 translate-x-1/2 items-center justify-center rounded-full border-2 bg-red-600/20 bg-gray-500/20 transition-[right] duration-700 md:hidden',
             menuOpen ? 'right-16' : 'right-1/2'
         )}
         onClick={onClick}
