@@ -76,7 +76,7 @@ const SideMenu: React.FC<{ menuOpen: boolean }> = ({ menuOpen }) => {
                 className={classNames(
                     'pointer-events-none fixed left-0 top-0 h-screen w-screen transition-all duration-300',
                     menuOpen
-                        ? 'backdrop-blur-[2px] backdrop-grayscale-[0.4]'
+                        ? 'backdrop-blur-[2px] backdrop-grayscale-[0.8]'
                         : 'backdrop-blur-0 backdrop-grayscale-0'
                 )}
             />

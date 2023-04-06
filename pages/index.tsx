@@ -171,6 +171,7 @@ const Home: NextPage = () => {
                     />
                 </section>
                 <ReviewsSection />
+                <AboutSection />
             </main>
         </>
     );
@@ -332,6 +333,42 @@ const ReviewsSection = () => {
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </Content>
+        </section>
+    );
+};
+
+const AboutSection = () => {
+    return (
+        <section className="bg-red-500 py-4">
+            <Content className="grid-cols-2 md:grid">
+                <div className="p-4">
+                    <div className="ml-auto max-w-sm">
+                        <Image
+                            alt="Hooker and Eight logo"
+                            height={382}
+                            src="/assets/images/logo.png"
+                            width={330}
+                        />
+                    </div>
+                </div>
+                <div className="flex pl-4 text-white md:border-l-2 md:border-l-white">
+                    <div className="my-auto">
+                        <div className="font-galasio font-medium opacity-60">
+                            Our story
+                        </div>
+                        <h3 className="mb-4 font-galasio text-4xl">
+                            Where it all began
+                        </h3>
+                        <p className="mb-4">
+                            Dan and Balz are childhood school friends who played
+                            local youth rugby together for many years...
+                        </p>
+                        <Link href="/about">
+                            <a className="btn">Read the whole story</a>
+                        </Link>
                     </div>
                 </div>
             </Content>
